@@ -7,7 +7,9 @@ import requests
 import random
 from datetime import datetime, timedelta
 
-API_KEY = 'key'
+DISCORD_BOT_TOKEN = os.getenv('DISCORD_BOT_TOKEN')
+API_KEY = os.getenv('API_NINJAS_KEY')
+CHANNEL_ID = int(os.getenv('CHANNEL_ID'))
 
 intents = discord.Intents.default()
 intents.message_content = True
@@ -21,12 +23,12 @@ bot = commands.Bot(command_prefix=">", intents=intents)
 @bot.event
 async def on_ready():
     print(f'Logged in as {bot.user.name}')
-    await bot.change_presence(status=discord.Status.idle)
-    fact_sender.start()
-    
-@tasks.loop(days=1)
+    fact_sender.start()  # Start the loop when the bot is ready
+
+
+@tasks.loop(daily=1)
 async def fact_sender():
-    channel = bot.get_channel(channel id)  # Replace with your channel ID
+    channel = bot.get_channel(CHANNEL_ID)  # Use the channel ID from the Railway secret
     if channel:
         # Fetch fact from API Ninjas
         api_url = 'https://api.api-ninjas.com/v1/facts'
