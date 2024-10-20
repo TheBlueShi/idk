@@ -7,7 +7,11 @@ import requests
 import random
 from datetime import datetime, timedelta
 
-DISCORD_BOT_TOKEN = os.getenv('DISCORD_BOT_TOKEN')
+DISCORD_TOKEN = os.environ.get('DISCORD_TOKEN')
+if DISCORD_TOKEN is None:
+    print("Error: DISCORD_TOKEN not set in environment variables.")
+    exit(1)
+    
 API_KEY = os.getenv('API_NINJAS_KEY')
 CHANNEL_ID = int(os.getenv('CHANNEL_ID'))
 
@@ -66,4 +70,4 @@ async def ping(ctx):
 
 
 keep_alive()
-bot.run('DISCORD_BOT_TOKEN')
+bot.run('DISCORD_TOKEN')
