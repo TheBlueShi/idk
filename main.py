@@ -8,6 +8,8 @@ import random
 from datetime import datetime, timedelta
 
 DISCORD_TOKEN = os.environ.get('DISCORD_TOKEN')
+print(f"Using token: {DISCORD_TOKEN}")
+print(os.environ)
 if DISCORD_TOKEN is None:
     print("Error: DISCORD_TOKEN not set in environment variables.")
     exit(1)
