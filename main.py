@@ -7,7 +7,6 @@ import requests
 import random
 from datetime import datetime, timedelta
 
-DISCORD_TOKEN = os.environ.get('DISCORD_TOKEN')
 print(f"Using token: {DISCORD_TOKEN}")
 print(os.environ)
 if DISCORD_TOKEN is None:
@@ -72,4 +71,4 @@ async def ping(ctx):
 
 
 keep_alive()
-bot.run('DISCORD_TOKEN')
+bot.run(os.environ["DISCORD_TOKEN"])
