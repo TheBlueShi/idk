@@ -26,7 +26,7 @@ async def on_ready():
     fact_sender.start()  # Start the loop when the bot is ready
 
 
-@tasks.loop(daily=1)
+@tasks.loop(days=1)
 async def fact_sender():
     channel = bot.get_channel(CHANNEL_ID)  # Use the channel ID from the Railway secret
     if channel:
