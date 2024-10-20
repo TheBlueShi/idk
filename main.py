@@ -14,7 +14,7 @@ if DISCORD_TOKEN is None:
     print("Error: DISCORD_TOKEN not set in environment variables.")
     exit(1)
     
-API_KEY = os.getenv('API_NINJAS_KEY')
+API_KEY = os.getenv('API_KEY')
 CHANNEL_ID = int(os.getenv('CHANNEL_ID'))
 
 intents = discord.Intents.default()
@@ -34,7 +34,7 @@ async def on_ready():
 
 @tasks.loop(minutes=1440)
 async def fact_sender():
-    channel = bot.get_channel(CHANNEL_ID)  # Use the channel ID from the Railway secret
+    channel = bot.get_channel(os.getenv("CHANNEL_ID"))  # Use the channel ID from the Railway secret
     if channel:
         # Fetch fact from API Ninjas
         api_url = 'https://api.api-ninjas.com/v1/facts'
