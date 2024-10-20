@@ -72,4 +72,4 @@ async def ping(ctx):
 
 
 keep_alive()
-bot.run("DISCORD_TOKEN")
+bot.run(os.environ["DISCORD_TOKEN"])
