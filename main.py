@@ -26,13 +26,7 @@ intents.reactions = True
 # Use the PREFIX from the config
 bot = commands.Bot(command_prefix=">", intents=intents)
 
-@bot.event
-async def on_ready():
-    print(f'Logged in as {bot.user.name}')
-    fact_sender.start()  # Start the loop when the bot is ready
-
-
-@tasks.loop(minutes=1440)
+@tasks.loop(hours=24)
 async def fact_sender():
     channel = bot.get_channel(os.getenv("CHANNEL_ID"))  # Use the channel ID from the Railway secret
     if channel:
@@ -97,6 +91,12 @@ async def fact(ctx):
 async def ping(ctx):
     print("Ping command executed!")  # Debugging line
     await ctx.send("Pong!")
+
+
+@bot.event
+async def on_ready():
+    fact_sender.start()  # Start the loop when the bot is ready
+    print(f'Logged in as {bot.user.name}')\
 
 
 keep_alive()
