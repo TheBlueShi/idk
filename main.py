@@ -15,7 +15,7 @@ if DISCORD_TOKEN is None:
     exit(1)
     
 API_KEY = os.getenv('API_KEY')
-CHANNEL_ID = os.environ.get('CHANNEL_ID'))
+CHANNEL_ID = os.environ.get('CHANNEL_ID')
 
 intents = discord.Intents.default()
 intents.message_content = True
