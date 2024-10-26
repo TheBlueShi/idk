@@ -64,6 +64,39 @@ async def fact_sender():
         else:
             await channel.send("Failed to fetch the fact. Please try again later.")
 
+@bot.command()
+async def fact(ctx):
+    # Fetch fact from API Ninjas
+    api_url = 'https://api.api-ninjas.com/v1/facts'
+    response = requests.get(api_url, headers={'X-Api-Key': API_KEY})
+
+    if response.status_code == 200:
+        fact_data = response.json()[0]
+        fact_text = fact_data['fact']
+
+        # Create an embed
+        embed = discord.Embed(
+            title="Daily Fact",
+            description=fact_text,
+            color=random.randint(0, 0xFFFFFF)
+        )
+        # Optionally set an image (replace with a valid image URL)
+        image_url = "https://cdn.discordapp.com/attachments/1296806815983734784/1297449756662038571/Fun_fact.gif?ex=6715f7bf&is=6714a63f&hm=8f5b221d5c274abf16ffade0f46d635e771f296a80a11e0d8cd2cb664af3cf89&"  # Replace with actual image URL
+        embed.set_image(url=image_url)  # Set the image in the embed
+
+        # Send the message in the channel
+        message = await ctx.send(embed=embed)
+
+        # Check if the channel is an announcement channel and publish the message
+        if isinstance(ctx.channel, discord.TextChannel) and ctx.channel.is_news():
+            await message.publish()
+            await ctx.send("The fact has been published to all follower servers!")
+        else:
+            await ctx.send("This is not an announcement channel, so the fact was not published.")
+    else:
+        # Print the error details for debugging
+        await ctx.send(f"Failed to fetch the fact. Error {response.status_code}: {response.text}")
+
 # Adding the ping command directly in main.py
 @bot.command(name='ping')
 async def ping(ctx):
