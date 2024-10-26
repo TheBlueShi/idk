@@ -43,13 +43,13 @@ def fetch_fact():
 
 @tasks.loop(minutes=1)  # Change to hours=24 for daily after testing
 async def send_daily_fact():
-    channel_id = int(os.getenv("DISCORD_CHANNEL_ID"))  # Set the channel ID in Railway variables
+    channel_id = int(os.getenv("CHANNEL_ID"))  # Set the channel ID in Railway variables
     channel = bot.get_channel(channel_id)
     if channel:
         fact = fetch_fact()
         await channel.send(fact)
     else:
-        print("Channel not found. Ensure the DISCORD_CHANNEL_ID is correct.")
+        print("Channel not found. Ensure the CHANNEL_ID is correct.")
 
 
 @bot.command()
